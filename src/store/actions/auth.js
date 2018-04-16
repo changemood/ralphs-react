@@ -11,7 +11,7 @@ export const authStart = () => {
 export const authSuccess = (token) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    idToken: token
+    token: token
   };
 };
 
@@ -22,21 +22,24 @@ export const authFail = (error) => {
   };
 };
 
-export const signUp = (email, password, passwordConfirmation) => {
+export const signUp = (email, userName, password, passwordConfirmation) => {
   return dispatch => {
     dispatch(authStart());
     const authData = {
-      email: email,
-      password: password,
-      passwordConfirmation: passwordConfirmation,            
+      user: {
+        email: email,
+        username: userName,
+        password: password,
+        password_confirmation: passwordConfirmation,
+      }
     };
-    const url = 'https://ralphs.herokuapp.com/api/v1/users';
+    const url = 'http://localhost:5000/api/v1/users.json';
     axios.post(url, authData)
       .then(response => {
-          dispatch(authSuccess(response.data.token));
+        dispatch(authSuccess(response.data.token));
       })
       .catch(err => {
-          dispatch(authFail(response.data.errors));
+        dispatch(authFail(err.response.data.errors));
       });
   };
 };
