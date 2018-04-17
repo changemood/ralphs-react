@@ -7,18 +7,19 @@ import * as actions from '../../../store/actions/index';
 import classes from '../Auth.module.css'
 
 class SignUp extends Component {
-  state = {
-    email: '',
-    userName: '',
-    password: '',
-    passwordConfirmation: ''
-  }
-
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.onSignUp(values.email, values.userName, values.password, values.passwordConfirmation)
+        const authData = {
+          user: {
+            email: values.email,
+            username: values.userName,
+            password: values.password,
+            password_confirmation: values.passwordConfirmation
+          }
+        }
+        this.props.onSignUp(authData)
       }
     })
   }
@@ -74,7 +75,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSignUp: (email, userName, password, passwordConfirmation) => dispatch( actions.signUp(email, userName, password, passwordConfirmation) )
+    onSignUp: (authData) => dispatch( actions.auth(authData) )
   }
 }
 

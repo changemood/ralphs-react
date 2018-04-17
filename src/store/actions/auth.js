@@ -22,24 +22,22 @@ export const authFail = (error) => {
   };
 };
 
-export const signUp = (email, userName, password, passwordConfirmation) => {
+export const auth = (authData, type='signUp') => {
   return dispatch => {
     dispatch(authStart());
-    const authData = {
-      user: {
-        email: email,
-        username: userName,
-        password: password,
-        password_confirmation: passwordConfirmation,
-      }
-    };
-    const url = 'http://localhost:5000/api/v1/users.json';
+    let url = 'http://localhost:5000/api/v1/users.json'
+    if (type === 'login') {
+      url = 'http://localhost:5000/api/v1/users/sign_in.json'
+    }
     axios.post(url, authData)
       .then(response => {
         dispatch(authSuccess(response.data.token));
       })
       .catch(err => {
-        dispatch(authFail(err.response.data.errors));
+        // sign up can return multiple errors...
+        let error = err.response.data.errors
+        if (type === 'login') error = err.response.data.error
+        dispatch(authFail(error));
       });
   };
-};
+}
