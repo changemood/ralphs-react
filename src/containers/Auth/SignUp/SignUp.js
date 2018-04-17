@@ -19,7 +19,6 @@ class SignUp extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.onSignUp(values.email, values.userName, values.password, values.passwordConfirmation)
-        console.log('Received values of form: ', values);
       }
     })
   }
@@ -29,37 +28,37 @@ class SignUp extends Component {
     const FormItem = Form.Item
     return (
       <Form onSubmit={this.handleSubmit} className={classes.Auth}>
-        <FormItem>
+        <FormItem hasFeedback={true}>
             {getFieldDecorator('email', {
-              rules: [{ required: true, message: 'Please input your email' }],
+              rules: [{ required: true, pattern: /.+?@.+?\..+?/, message: 'Your email is invalid' }],
               })(
                 <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} type="email" placeholder="Email" />
             )}
         </FormItem>
-        <FormItem>
+        <FormItem hasFeedback={true} >
             {getFieldDecorator('userName', {
               rules: [{ required: true, message: 'Please input your username' }],
               })(
                 <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
             )}
         </FormItem>
-        <FormItem>
+        <FormItem hasFeedback={true}>
             {getFieldDecorator('password', {
-              rules: [{ required: true, message: 'Please input your Password' }],
+              rules: [{ required: true, min: 8, whitespace: true }],
               })(
                 <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
               )
             }
         </FormItem>
-        <FormItem>
+        <FormItem hasFeedback={true}>
             {getFieldDecorator('passwordConfirmation', {
-              rules: [{ required: true, message: 'Please input your Password confirmation' }],
+              rules: [{ required: true, min: 8, whitespace: true }],
               })(
                 <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password confirmation" />
               )
             }
         </FormItem>
-        <Button type="primary" htmlType="submit" className={classes.AuthButton}>
+        <Button type="primary" htmlType="submit" className={classes.AuthButton} loading={this.props.loading} disabled={this.props.loading}>
           Sign Up
         </Button>
       </Form>
