@@ -24,9 +24,9 @@ export const authFail = (error) => {
 
 export const checkAuthTimeout = (expirationTime) => {
   return dispatch => {
-      setTimeout(() => {
-          dispatch(logout());
-      }, expirationTime * 3600000);
+    setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime * 3600000);
   };
 };
 
@@ -57,6 +57,24 @@ export const auth = (authData, type='signUp') => {
 export const logout = () => {
   localStorage.removeItem('token');
   return {
-      type: actionTypes.AUTH_LOGOUT
+    type: actionTypes.AUTH_LOGOUT
+  };
+};
+
+// When user come back before logout and token is still valid
+export const authCheckState = () => {
+  return dispatch => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      dispatch(logout());
+    } else {
+      const expirationDate = new Date(localStorage.getItem('expirationDate'));
+      if (expirationDate <= new Date()) {
+        dispatch(logout());
+      } else {
+        dispatch(authSuccess(token));
+        dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 3600000 ));
+      }
+    }
   };
 };
