@@ -42,3 +42,10 @@ export const auth = (authData, type='signUp') => {
       });
   };
 }
+
+export const logout = () => {
+  localStorage.removeItem('token');
+  return {
+      type: actionTypes.AUTH_LOGOUT
+  };
+};
