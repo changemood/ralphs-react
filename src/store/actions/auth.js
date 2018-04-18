@@ -31,6 +31,7 @@ export const auth = (authData, type='signUp') => {
     }
     axios.post(url, authData)
       .then(response => {
+        localStorage.setItem('token', response.data.token);
         dispatch(authSuccess(response.data.token));
       })
       .catch(err => {
