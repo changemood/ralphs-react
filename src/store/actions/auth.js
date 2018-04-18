@@ -22,6 +22,14 @@ export const authFail = (error) => {
   };
 };
 
+export const checkAuthTimeout = (expirationTime) => {
+  return dispatch => {
+      setTimeout(() => {
+          dispatch(logout());
+      }, expirationTime * 3600000);
+  };
+};
+
 export const auth = (authData, type='signUp') => {
   return dispatch => {
     dispatch(authStart());
@@ -31,8 +39,11 @@ export const auth = (authData, type='signUp') => {
     }
     axios.post(url, authData)
       .then(response => {
+        const expirationDate = new Date(new Date().getTime() + response.data.expires_in * 3600000)
+        localStorage.setItem('expirationDate', expirationDate);
         localStorage.setItem('token', response.data.token);
         dispatch(authSuccess(response.data.token));
+        dispatch(checkAuthTimeout(response.data.expires_in));
       })
       .catch(err => {
         // sign up can return multiple errors...
