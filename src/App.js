@@ -30,6 +30,7 @@ class App extends Component {
       routes = (
         <AfterAuth>
           <Switch>
+            <Route path="/dashboard" exact component={Login} />
             <Route path="/user" exact component={Login} />
             <Route path="/bords" exact component={Login} />
             <Redirect to="/dashboard" />
