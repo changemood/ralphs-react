@@ -46,9 +46,13 @@ export const auth = (authData, type='signUp') => {
         dispatch(checkAuthTimeout(response.data.expires_in));
       })
       .catch(err => {
-        // sign up can return multiple errors...
-        let error = err.response.data.errors
-        if (type === 'login') error = err.response.data.error
+        let error
+        if (type === 'login') {
+          error = err.response.data.error
+        } else if (type === 'signUp') {
+          // sign up can return multiple errors...
+          error = err.response.data.errors
+        }
         dispatch(authFail(error));
       });
   };
