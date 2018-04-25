@@ -1,0 +1,86 @@
+.Card {
+  width: 25%;
+  height: 300px;  
+  border: 1px solid #ebedf0;
+  position: relative;
+  border-radius: 5px
+}
+
+  .Main {
+    height: 250px;
+  }
+
+    .Title {
+      min-height: 30px;
+      align-items: center;          
+      border-bottom: 1px solid #ebedf0;
+    }
+  
+    .Body {
+      min-height: 30px;
+      overflow: auto;
+    }
+
+  .Menu {
+    display: flex;
+    flex-flow: row wrap;
+    height: 50px;
+    border-top: 1px solid #ebedf0;
+    cursor: pointer;    
+  }
+    .Button {
+      width: 40%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid #ebedf0;  
+    }
+    .DropDown {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20%
+    }
+  
+  .Button:hover,
+  .DropDown:hover {
+    background-color: #1890ff;
+    color: white;
+  }
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .Card {
+    width: 100%
+  }
+} 
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .Card {
+    width: 100%
+  }
+} 
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .Card {
+    width: 50%
+  }
+} 
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .Card {
+    width: 25%
+  }
+} 
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .Card {
+    width: 25%
+  }
+}
