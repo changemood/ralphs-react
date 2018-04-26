@@ -1,12 +1,12 @@
 import React,{Component} from 'react'
 
-import Card from '../../components/Card/Card'
+import ReviewCards from './ReviewCards/ReviewCards'
 
 class Dashboard extends Component {
   render () {
     return (
       <div>
-        <Card />
+        <ReviewCards />
       </div>
     )
   }
