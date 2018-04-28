@@ -33,9 +33,9 @@ export const checkAuthTimeout = (expirationTime) => {
 export const auth = (authData, type='signUp') => {
   return dispatch => {
     dispatch(authStart());
-    let url = 'http://localhost:5000/api/v1/users.json'
+    let url = `${process.env.REACT_APP_API_URL}/api/v1/users.json`
     if (type === 'login') {
-      url = 'http://localhost:5000/api/v1/users/sign_in.json'
+      url = `${process.env.REACT_APP_API_URL}/api/v1/users/sign_in.json`
     }
     axios.post(url, authData)
       .then(response => {
