@@ -15,7 +15,6 @@ const fetchReviewCardsStart = ( state, action ) => {
 };
 
 const fetchReviewCardsSuccess = (state, action) => {
-  console.log(action.reviewCards)
   return {
     ...state,
     reviewCards: action.reviewCards,

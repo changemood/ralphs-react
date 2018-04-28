@@ -7,7 +7,7 @@ import classes from './ReviewCards.module.css'
 import Card from '../../../components/Dashboard/ReviewCards/Card/Card'
 
 class ReviewCards extends Component {
-  
+
   handleReviewed = (cardId, type = 'reviewed') => {
     if (type === 'reviewed') {
       console.log('reviewd')
@@ -25,19 +25,22 @@ class ReviewCards extends Component {
     if ( !this.props.loading ) {
       reviewCards = this.props.reviewCards.map( card => {
         return (
-          <Card
-            key={card.id}
-            title={card.title}
-            body={card.body}
-            reviewed={() => this.handleReviewed('123')}
-            reviewAgain={() => this.handleReviewed('123', 'again')}
-            />
+          <li key={card.id}>
+            <Card
+              title={card.title}
+              body={card.body}
+              reviewed={() => this.handleReviewed('123')}
+              reviewAgain={() => this.handleReviewed('123', 'again')}
+              />
+          </li> 
         )
       })  
     }
     return (
       <div className={classes.ReviewCards}>
-        {reviewCards}
+        <ul>
+          {reviewCards}
+        </ul>
       </div>
     )
   }
