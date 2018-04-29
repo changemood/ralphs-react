@@ -7,6 +7,7 @@ import BeforeAuth from './hoc/Layout/BoforeAuth/BeforeAuth'
 import AfterAuth from './hoc/Layout/AfterAuth/AfterAuth'
 import SignUp from './containers/Auth/SignUp/SignUp'
 import Login from './containers/Auth/Login/Login'
+import Dashboard from './containers/Dashboard/Dashboard'
 import * as actions from './store/actions/index';
 
 
@@ -30,7 +31,7 @@ class App extends Component {
       routes = (
         <AfterAuth>
           <Switch>
-            <Route path="/dashboard" exact component={Login} />
+            <Route path="/dashboard" exact component={Dashboard} />
             <Route path="/user" exact component={Login} />
             <Route path="/bords" exact component={Login} />
             <Redirect to="/dashboard" />
