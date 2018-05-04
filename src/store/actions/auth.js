@@ -83,3 +83,24 @@ export const authCheckState = () => {
     }
   };
 };
+
+export const hanleGoogleAuth = (accessToken) => {
+  return dispatch => {
+    const url = `${process.env.REACT_APP_API_URL}/api/v1/users/google`
+    const params = {
+      access_token: accessToken
+    }
+    axios.post(url, params)
+      .then(response => {
+        const expirationDate = new Date(new Date().getTime() + response.data.expires_in * 3600000)
+        localStorage.setItem('expirationDate', expirationDate);
+        localStorage.setItem('token', response.data.token);
+        dispatch(authSuccess(response.data.token));
+        dispatch(checkAuthTimeout(response.data.expires_in));
+      })
+      .catch(err => {
+        const error = err.response.data.errors
+        dispatch(authFail(error));
+      });
+  }
+}

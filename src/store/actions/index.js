@@ -1,5 +1,6 @@
 export {
   auth,
+  hanleGoogleAuth,
   logout,
   authCheckState,
 } from './auth';
