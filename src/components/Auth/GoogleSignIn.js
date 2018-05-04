@@ -1,0 +1,15 @@
+import React from 'react'
+import {GoogleAPI, GoogleLogin} from 'react-google-oauth';
+
+const googleSignIn = (props) => {
+  console.log(process.env.REACT_APP_GOOGLE_CLIENT_ID)
+  return (
+    <GoogleAPI className="GoogleLogin" clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+      <div>
+        <GoogleLogin height="10" width="100%" backgroundColor="#4285f4" access="offline" scope="email profile" onLoginSuccess={props.responseGoogle} onFailure={props.responseGoogle}/>
+      </div>
+    </GoogleAPI>
+  )
+}
+
+export default googleSignIn;
