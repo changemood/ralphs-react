@@ -7,9 +7,10 @@ class CardForm extends Component {
     const FormItem = Form.Item
     return (
       <div>
-        <Modal title="Title"
+        <Modal title="Create New Card"
           visible={this.props.visible}
           onOk={this.props.submitCardForm}
+          okText="Create"
           confirmLoading={this.props.loading}
           onCancel={this.props.close}
         >
