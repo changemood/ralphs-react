@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { Form, Input, Icon } from 'antd'
+import { Form, Input, Icon, Divider } from 'antd'
+
 import Button from 'antd/lib/button';
+import GoogleSignIn from '../../../components/Auth/GoogleSignIn';
 import 'antd/lib/button/style/index.css'
 import * as actions from '../../../store/actions/index';
 import classes from '../Auth.module.css'
@@ -22,12 +24,18 @@ class Login extends Component {
     })
   }
 
+  responseGoogle = (response) => {
+    this.props.onHanleGoogleAuth(response.Zi.access_token)
+  }
+
   render () {
     const { getFieldDecorator } = this.props.form
     const FormItem = Form.Item
     const error = this.props.error ? <p>{this.props.error.email[0]}</p> : null
     return (
       <Form onSubmit={this.handleSubmit} className={classes.Auth}>
+        <GoogleSignIn responseGoogle={this.responseGoogle} text="Sign in with Google"/>
+        <Divider>or</Divider>
         <FormItem>
             {getFieldDecorator('email', {
               rules: [{ required: true, pattern: /.+?@.+?\..+?/, message: 'Your email is invalid' }],
@@ -60,7 +68,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSignUp: (authData) => dispatch( actions.auth(authData, 'login') )
+    onSignUp: (authData) => dispatch( actions.auth(authData, 'login') ),
+    onHanleGoogleAuth: (accessToken) => dispatch( actions.hanleGoogleAuth(accessToken) )
   }
 }
 

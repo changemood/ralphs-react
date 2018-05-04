@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { Form, Input, Icon } from 'antd'
+import { Form, Input, Icon, Divider } from 'antd'
+
+import GoogleSignIn from '../../../components/Auth/GoogleSignIn';
 import Button from 'antd/lib/button';
 import 'antd/lib/button/style/index.css'
 import * as actions from '../../../store/actions/index';
@@ -24,11 +26,17 @@ class SignUp extends Component {
     })
   }
 
+  responseGoogle = (response) => {
+    this.props.onHanleGoogleAuth(response.Zi.access_token)
+  }
+
   render () {
     const { getFieldDecorator } = this.props.form
     const FormItem = Form.Item
     return (
       <Form onSubmit={this.handleSubmit} className={classes.Auth}>
+        <GoogleSignIn responseGoogle={this.responseGoogle} text="Sign up with Google"/>
+        <Divider>or</Divider>
         <FormItem hasFeedback={true}>
             {getFieldDecorator('email', {
               rules: [{ required: true, pattern: /.+?@.+?\..+?/, message: 'Your email is invalid' }],
@@ -75,7 +83,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSignUp: (authData) => dispatch( actions.auth(authData) )
+    onSignUp: (authData) => dispatch( actions.auth(authData) ),
+    onHanleGoogleAuth: (accessToken) => dispatch( actions.hanleGoogleAuth(accessToken) )
   }
 }
 
