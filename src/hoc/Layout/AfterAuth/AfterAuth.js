@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Layout, Menu, Icon, Affix, Button, message } from 'antd';
+import { Layout, Menu, Icon, message } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 import classes from './AfterAuth.module.css'
