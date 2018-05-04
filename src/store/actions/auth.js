@@ -34,7 +34,7 @@ export const checkAuthTimeout = (expirationTime) => {
 export const auth = (authData, type='signUp') => {
   return dispatch => {
     dispatch(authStart());
-    let url = `${process.env.REACT_APP_API_URL}/api/v1/users.json`
+    let url = `${process.env.REACT_APP_API_URL}/api/v1/users.json`
     if (type === 'login') {
       url = `${process.env.REACT_APP_API_URL}/api/v1/users/sign_in.json`
     }
