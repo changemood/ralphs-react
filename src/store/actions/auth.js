@@ -25,7 +25,8 @@ export const authFail = (error) => {
 export const checkAuthTimeout = (expirationTime) => {
   return dispatch => {
     setTimeout(() => {
-      dispatch(logout());
+      // TODO: once we stop storing cookie(need to fix on api side), we can uncomment here.
+      // dispatch(logout());
     }, expirationTime * 3600000);
   };
 };
