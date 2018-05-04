@@ -1,0 +1,15 @@
+{
+  "name": "ralphs-react",
+  "description": "Front side for Ralphs",
+  "env" : {
+    "REACT_APP_API_URL": {
+      "value": "https://github.com/heroku/heroku-buildpack-nodejs.git",
+      "required": true
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/mars/create-react-app-buildpack.git"
+    }
+  ]
+}
