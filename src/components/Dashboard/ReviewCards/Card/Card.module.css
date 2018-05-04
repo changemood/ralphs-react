@@ -19,6 +19,7 @@
     .Body {
       min-height: 30px;
       overflow: auto;
+      white-space: pre;
     }
 
   .Menu {
