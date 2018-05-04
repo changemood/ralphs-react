@@ -22,7 +22,7 @@ class CardForm extends Component {
                 )}
               </FormItem>
               <FormItem label="Body">
-                {getFieldDecorator('body')(<Input type="textarea" />)}
+                {getFieldDecorator('body')(<Input.TextArea rows={10} />)}
               </FormItem>
             </Form>
         </Modal>
