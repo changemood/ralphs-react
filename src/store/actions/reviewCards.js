@@ -1,4 +1,4 @@
-import {axios} from '../../utilities';
+import axios from '../../utilities';
 
 import * as actionTypes from './actionTypes';
 

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import classes from './AfterAuth.module.css'
 import CardForm from '../../../components/Modal/CardForm/CardForm'
-import {axios} from '../../../utilities';
+import axios from '../../../utilities';
 
 const { Sider, Content } = Layout;
 
