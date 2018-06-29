@@ -12,7 +12,7 @@ import authReducer from './store/reducers/auth';
 import reviewCardsReducer from './store/reducers/reviewCards';
 
 // Redux devtool extention for development
-const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+const composeEnhancers = process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
   auth: authReducer,
