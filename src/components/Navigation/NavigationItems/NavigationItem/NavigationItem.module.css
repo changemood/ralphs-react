@@ -1,17 +1,13 @@
 .NavigationItem {
-  box-sizing: border-box;
   display: block;
-  width: 100px;
-  height: 100%;
-  align-items: center;  
+  width: 5rem;
+  height: 100%;  
 }
 
 .NavigationItem a {
   color: rgb(255, 255, 255);
-  text-decoration: none;
-  box-sizing: border-box;
   display: block;
-  height: 100%;  
+  padding: 1rem 0.5rem;
 }
 
 .NavigationItem a:hover,
@@ -19,5 +15,4 @@
 .NavigationItem a.active {
   background-color: #40A4C8;
   color: white;
-  padding: 16px 10px;   
 }
