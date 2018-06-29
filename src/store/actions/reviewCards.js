@@ -25,7 +25,7 @@ export const fetchReviewCardsFail = (error) => {
 export const fetchReviewCards = () => {
   return dispatch => {
     dispatch(fetchReviewCardsStart());
-    axios.get('/api/v1/cards/review_cards.json')
+    axios.get('/v1/cards/review_cards.json')
     .then(response => {
       dispatch(fetchReviewCardsSuccess(response.data));
     })

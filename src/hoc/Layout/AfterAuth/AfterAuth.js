@@ -49,7 +49,7 @@ class AfterAuth extends Component {
           // board_id: null
         },
       }
-      axios.post('/api/v1/cards.json', params)
+      axios.post('/v1/cards.json', params)
       .then(response => {
         message.success('Card is successfully created');
         form.resetFields();

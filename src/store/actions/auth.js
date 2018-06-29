@@ -34,9 +34,9 @@ export const checkAuthTimeout = (expirationTime) => {
 export const auth = (authData, type='signUp') => {
   return dispatch => {
     dispatch(authStart());
-    let url = `${process.env.REACT_APP_API_URL}/api/v1/users.json`
+    let url = `${process.env.REACT_APP_API_URL}/v1/users.json`
     if (type === 'login') {
-      url = `${process.env.REACT_APP_API_URL}/api/v1/users/sign_in.json`
+      url = `${process.env.REACT_APP_API_URL}/v1/users/sign_in.json`
     }
     axios.post(url, authData)
       .then(response => {
@@ -86,7 +86,7 @@ export const authCheckState = () => {
 
 export const hanleGoogleAuth = (accessToken) => {
   return dispatch => {
-    const url = `${process.env.REACT_APP_API_URL}/api/v1/users/google`
+    const url = `${process.env.REACT_APP_API_URL}/v1/users/google`
     const params = {
       access_token: accessToken
     }
