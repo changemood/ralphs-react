@@ -1,46 +1,51 @@
 import React,{Component} from 'react'
+import { connect } from 'react-redux';
+import { Spin } from 'antd'
+
 import 'react-sortable-tree/style.css';
 import SortableTree, { addNodeUnderParent, removeNodeAtPath, getFlatDataFromTree } from 'react-sortable-tree';
 
+import * as actions from '../../../../store/actions/index'
+
 class CardsTree extends Component {
-  state = {
-    treeData: [
-      {
-        id: "asdkj==asdfkjklasdf",
-        title: "roots",
-        subtitle: "root body",
-        children: [
-          {
-            "title": "descendant",
-            "subtitle": "yay",
-            "children": []
-          },
-          {
-            "title": "descendant",
-            "subtitle": "yay",
-            "children": [
-              {
-              "title": "descendant",
-              "subtitle": "yay",
-              "children": []
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }  
+  componentDidMount () {
+    this.props.onFetchCardsTree("board_id")
+  }
+
+  handleCardsTreeMove (treeData) {
+    console.log("MOVE")
+    console.log(treeData)
+  }
+
+  handleCardsTreeChange (treeData) {
+    this.setState({treeData})
+    console.log("CHANGE")
+    console.log(treeData)
+  }
+
   render () {
     return (
       <div style={{ height: 300 }}>
         <SortableTree
-            treeData={this.state.treeData}
-            onChange={treeData => this.setState({ treeData })}
-            onMoveNode={treeData => console.log(treeData.nextParentNode)}
+            treeData={this.props.cardsTree}
+            onChange={treeData => this.handleCardsTreeChange(treeData)}
+            onMoveNode={treeData => this.handleCardsTreeMove(treeData)}
           />
       </div>
     )
   }
 }
 
-export default CardsTree;
+const mapStateToProps = state => {
+  return {
+      loading: state.cardsTree.loading,
+      cardsTree: state.cardsTree.cardsTree
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onFetchCardsTree: (id) => dispatch( actions.fetchCardsTree(id) )
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CardsTree);

@@ -7,3 +7,6 @@ export {
 export {
   fetchReviewCards,
 } from './reviewCards';
+export {
+  fetchCardsTree,
+} from './cardsTree';
