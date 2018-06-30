@@ -14,7 +14,10 @@ class CardsTree extends Component {
 
   handleCardsTreeMove (treeData) {
     console.log("MOVE")
-    console.log(treeData)
+    // parent
+    console.log(treeData.nextParentNode.id)
+    // children
+    console.log(treeData.node.id)
   }
 
   handleCardsTreeChange (treeData) {
@@ -28,7 +31,7 @@ class CardsTree extends Component {
       <div style={{ height: 300 }}>
         <SortableTree
             treeData={this.props.cardsTree}
-            onChange={treeData => this.handleCardsTreeChange(treeData)}
+            onChange={treeData => this.props.onUpdateCardsTreeState(treeData)}
             onMoveNode={treeData => this.handleCardsTreeMove(treeData)}
           />
       </div>
@@ -45,7 +48,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchCardsTree: (id) => dispatch( actions.fetchCardsTree(id) )
+    onFetchCardsTree: (id) => dispatch( actions.fetchCardsTree(id) ),
+    onUpdateCardsTreeState: (newCardsTree) => dispatch( actions.updateCardsTreeState(newCardsTree) ),
+    onUpdateCardParent: (id, parentId) => dispatch( actions.updateCardParent(id, parentId) )
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CardsTree);

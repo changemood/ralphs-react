@@ -9,4 +9,6 @@ export {
 } from './reviewCards';
 export {
   fetchCardsTree,
+  updateCardsTreeState,
+  updateCardParent
 } from './cardsTree';

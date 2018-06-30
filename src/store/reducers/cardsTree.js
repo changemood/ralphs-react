@@ -32,11 +32,19 @@ const fetchcardsTreeFail = (state, action) => {
   }
 };
 
+const updateCardsTreeState = (state, action) => {
+  return {
+    ...state,
+    cardsTree: action.cardsTree,
+  }
+};
+
 const reducer = ( state = initialState, action ) => {
   switch ( action.type ) {
     case actionTypes.FETCH_CARDS_TREE_START: return fetchcardsTreeStart(state, action);
     case actionTypes.FETCH_CARDS_TREE_SUCCESS: return fetchcardsTreeSuccess(state, action);
     case actionTypes.FETCH_CARDS_TREE_FAIL: return fetchcardsTreeFail(state, action);
+    case actionTypes.UPDATE_CARDS_TREE_STATE: return updateCardsTreeState(state, action);    
     default: return state;
   }
 };

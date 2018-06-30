@@ -35,3 +35,10 @@ export const fetchCardsTree = (id) => {
     })
   };
 }
+
+export const updateCardsTreeState = (cardsTree) => {
+  return {
+    type: actionTypes.UPDATE_CARDS_TREE_STATE,
+    cardsTree: cardsTree
+  };
+};
