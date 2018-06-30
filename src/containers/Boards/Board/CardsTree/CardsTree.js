@@ -1,37 +1,52 @@
 import React,{Component} from 'react'
-import { connect } from 'react-redux';
-import { Spin } from 'antd'
-
-import 'react-sortable-tree/style.css';
 import SortableTree, { addNodeUnderParent, removeNodeAtPath, getFlatDataFromTree } from 'react-sortable-tree';
+import 'react-sortable-tree/style.css';
 
-import * as actions from '../../../../store/actions/index'
+import axios from '../../../../utilities';
 
+// NOTE: I created some actions and reducer for this component first,
+// but since we are not going to expect to use cardsTree state except this component,
+// so I decided to use local state instead...
 class CardsTree extends Component {
+  state = {
+    cardsTree: []
+  }
+  
   componentDidMount () {
-    this.props.onFetchCardsTree("board_id")
+    this.fetchCardsTree()
   }
 
+  fetchCardsTree () {
+    const id = "8984903c-709b-4a6d-8d4a-0286247ad324"
+    axios.get(`/v1/boards/${id}/cards/tree.json`)
+      .then(response => {
+        this.setState({cardsTree: response.data})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  // Update card ancestry on api side.
   handleCardsTreeMove (treeData) {
-    console.log("MOVE")
-    // parent
-    console.log(treeData.nextParentNode.id)
-    // children
-    console.log(treeData.node.id)
+    const data = {parent_id: (treeData.nextParentNode ? treeData.nextParentNode.id : null)}
+    axios.patch(`v1/cards/${treeData.node.id}/update_ancestry`, data)
+      .catch(err => {
+        console.log(err)
+      })
   }
 
+  // Simply update state.
   handleCardsTreeChange (treeData) {
-    this.setState({treeData})
-    console.log("CHANGE")
-    console.log(treeData)
+    this.setState({cardsTree: treeData})
   }
 
   render () {
     return (
       <div style={{ height: 300 }}>
         <SortableTree
-            treeData={this.props.cardsTree}
-            onChange={treeData => this.props.onUpdateCardsTreeState(treeData)}
+            treeData={this.state.cardsTree}
+            onChange={treeData => this.handleCardsTreeChange(treeData)}
             onMoveNode={treeData => this.handleCardsTreeMove(treeData)}
           />
       </div>
@@ -39,18 +54,4 @@ class CardsTree extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-      loading: state.cardsTree.loading,
-      cardsTree: state.cardsTree.cardsTree
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onFetchCardsTree: (id) => dispatch( actions.fetchCardsTree(id) ),
-    onUpdateCardsTreeState: (newCardsTree) => dispatch( actions.updateCardsTreeState(newCardsTree) ),
-    onUpdateCardParent: (id, parentId) => dispatch( actions.updateCardParent(id, parentId) )
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(CardsTree);
+export default CardsTree
