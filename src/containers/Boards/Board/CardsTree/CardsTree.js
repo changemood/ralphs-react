@@ -16,7 +16,10 @@ class CardsTree extends Component {
     cardsTree: [],
     modalVisible: false,
     node: {},
-    path: []
+    path: [],
+    searchString: '',
+    searchFocusIndex: 0,
+    searchFoundCount: null,
   }
   
   componentDidMount () {
@@ -99,12 +102,84 @@ class CardsTree extends Component {
   }
 
   render () {
+    const { searchString, searchFocusIndex, searchFoundCount } = this.state;
+
+    // Case insensitive search of `node.title` and `subtitle`
+    const customSearchMethod = ({ node, searchQuery }) =>
+      searchQuery &&
+      (node.title.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1 || node.subtitle.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1);
+
+    const selectPrevMatch = () =>
+      this.setState({
+        searchFocusIndex:
+          searchFocusIndex !== null
+            ? (searchFoundCount + searchFocusIndex - 1) % searchFoundCount
+            : searchFoundCount - 1,
+      });
+
+    const selectNextMatch = () =>
+      this.setState({
+        searchFocusIndex:
+          searchFocusIndex !== null
+            ? (searchFocusIndex + 1) % searchFoundCount
+            : 0,
+      });
+
     return (
-      <div style={{ height: 300 }}>
+      <div style={{ height: 600 }}>
+      <form
+        style={{ display: 'inline-block' }}
+        onSubmit={event => {
+          event.preventDefault();
+        }}>
+        <input
+          type="text"
+          placeholder="Search..."
+          style={{ fontSize: '1rem' }}
+          value={searchString}
+          onChange={event => this.setState({ searchString: event.target.value })}
+        />
+        <button
+          type="button"
+          disabled={!searchFoundCount}
+          onClick={selectPrevMatch}
+        >
+          &lt;
+        </button>
+        <button
+          type="submit"
+          disabled={!searchFoundCount}
+          onClick={selectNextMatch}
+        >
+          &gt;
+        </button>
+        <span>
+          &nbsp;
+          {searchFoundCount > 0 ? searchFocusIndex + 1 : 0}
+          &nbsp;/&nbsp;
+          {searchFoundCount || 0}
+        </span>
+    </form>
+
         <SortableTree
             treeData={this.state.cardsTree}
             onChange={treeData => this.handleCardsTreeChange(treeData)}
             onMoveNode={treeData => this.handleCardsTreeMove(treeData)}
+            searchMethod={customSearchMethod}
+            searchQuery={searchString}
+            searchFocusOffset={searchFocusIndex}
+            //
+            // This callback returns the matches from the search,
+            // including their `node`s, `treeIndex`es, and `path`s
+            // Here I just use it to note how many matches were found. (https://codesandbox.io/s/koz6mk94yv)
+            searchFinishCallback={matches =>
+              this.setState({
+                searchFoundCount: matches.length,
+                searchFocusIndex:
+                  matches.length > 0 ? searchFocusIndex % matches.length : 0,
+              })
+            }
+
             generateNodeProps={({ node, path }) => ({
               buttons: [
                 <button
