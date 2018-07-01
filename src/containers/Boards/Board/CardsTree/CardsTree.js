@@ -127,74 +127,74 @@ class CardsTree extends Component {
 
     return (
       <div style={{ height: 600 }}>
-      <form
-        style={{ display: 'inline-block' }}
-        onSubmit={event => {
-          event.preventDefault();
-        }}>
-        <input
-          type="text"
-          placeholder="Search..."
-          style={{ fontSize: '1rem' }}
-          value={searchString}
-          onChange={event => this.setState({ searchString: event.target.value })}
-        />
-        <button
-          type="button"
-          disabled={!searchFoundCount}
-          onClick={selectPrevMatch}
-        >
-          &lt;
-        </button>
-        <button
-          type="submit"
-          disabled={!searchFoundCount}
-          onClick={selectNextMatch}
-        >
-          &gt;
-        </button>
-        <span>
-          &nbsp;
-          {searchFoundCount > 0 ? searchFocusIndex + 1 : 0}
-          &nbsp;/&nbsp;
-          {searchFoundCount || 0}
-        </span>
-    </form>
-
-        <SortableTree
-            treeData={this.state.cardsTree}
-            onChange={treeData => this.handleCardsTreeChange(treeData)}
-            onMoveNode={treeData => this.handleCardsTreeMove(treeData)}
-            searchMethod={customSearchMethod}
-            searchQuery={searchString}
-            searchFocusOffset={searchFocusIndex}
-            //
-            // This callback returns the matches from the search,
-            // including their `node`s, `treeIndex`es, and `path`s
-            // Here I just use it to note how many matches were found. (https://codesandbox.io/s/koz6mk94yv)
-            searchFinishCallback={matches =>
-              this.setState({
-                searchFoundCount: matches.length,
-                searchFocusIndex:
-                  matches.length > 0 ? searchFocusIndex % matches.length : 0,
-              })
-            }
-
-            generateNodeProps={({ node, path }) => ({
-              buttons: [
-                <button
-                  onClick={() => { this.openModal(node, path);}}
-                >
-                  Add Child
-                </button>]}
-                )}
+        <form
+          style={{ display: 'inline-block' }}
+          onSubmit={event => {
+            event.preventDefault();
+          }}>
+          <input
+            type="text"
+            placeholder="Search..."
+            style={{ fontSize: '1rem' }}
+            value={searchString}
+            onChange={event => this.setState({ searchString: event.target.value })}
           />
+          <button
+            type="button"
+            disabled={!searchFoundCount}
+            onClick={selectPrevMatch}
+          >
+            &lt;
+          </button>
+          <button
+            type="submit"
+            disabled={!searchFoundCount}
+            onClick={selectNextMatch}
+          >
+            &gt;
+          </button>
+          <span>
+            &nbsp;
+            {searchFoundCount > 0 ? searchFocusIndex + 1 : 0}
+            &nbsp;/&nbsp;
+            {searchFoundCount || 0}
+          </span>
+      </form>
+
+      <SortableTree
+        treeData={this.state.cardsTree}
+        onChange={treeData => this.handleCardsTreeChange(treeData)}
+        onMoveNode={treeData => this.handleCardsTreeMove(treeData)}
+        searchMethod={customSearchMethod}
+        searchQuery={searchString}
+        searchFocusOffset={searchFocusIndex}
+        //
+        // This callback returns the matches from the search,
+        // including their `node`s, `treeIndex`es, and `path`s
+        // Here I just use it to note how many matches were found. (https://codesandbox.io/s/koz6mk94yv)
+        searchFinishCallback={matches =>
+          this.setState({
+            searchFoundCount: matches.length,
+            searchFocusIndex:
+              matches.length > 0 ? searchFocusIndex % matches.length : 0,
+          })
+        }
+
+        generateNodeProps={({ node, path }) => ({
+          buttons: [
+            <button
+              onClick={() => { this.openModal(node, path);}}
+            >
+              Add Child
+            </button>]}
+            )}
+        />
         <CardForm
-            wrappedComponentRef={this.saveFormRef}
-            visible={this.state.modalVisible}
-            close={this.closeModal}
-            loading={this.props.loading}
-            submitCardForm={this.submitCardForm}/>
+          wrappedComponentRef={this.saveFormRef}
+          visible={this.state.modalVisible}
+          close={this.closeModal}
+          loading={this.props.loading}
+          submitCardForm={this.submitCardForm}/>
       </div>
     )
   }
