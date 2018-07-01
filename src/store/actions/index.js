@@ -12,3 +12,6 @@ export {
   updateCardsTreeState,
   updateCardParent
 } from './cardsTree';
+export {
+  createCard
+} from './manageCard';
