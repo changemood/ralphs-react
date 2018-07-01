@@ -34,6 +34,7 @@ class AfterAuth extends Component {
   }
 
   submitCardForm = () => {
+    console.log(this.state)
     const form = this.formRef.props.form;
     form.validateFields((err, values) => {
       if (err) return;
@@ -47,7 +48,7 @@ class AfterAuth extends Component {
         .then(result => {
           message.success('Card is successfully created');
           form.resetFields();
-          this.setState({modalVisible: false});
+          this.closeModal();
         })
         .catch(err => {
           message.error('Failed to create card, try again...');
@@ -118,6 +119,7 @@ class AfterAuth extends Component {
 const mapStateToProps = state => {
   return {
       loading: state.manageCard.loading,
+      card: state.manageCard.card,      
     };
 };
 
