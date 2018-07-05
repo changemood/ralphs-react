@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import { Layout, Menu, Icon, message } from 'antd';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import * as actions from '../../../store/actions/index'
 import classes from './AfterAuth.module.css'
 import CardForm from '../../../components/Modal/CardForm/CardForm'
 import axios from '../../../utilities';
@@ -12,7 +14,6 @@ class AfterAuth extends Component {
   state = {
     collapsed: false,
     modalVisible: false,
-    loading: false,
   };
   toggle = () => {
     this.setState({
@@ -33,37 +34,25 @@ class AfterAuth extends Component {
   }
 
   submitCardForm = () => {
+    console.log(this.state)
     const form = this.formRef.props.form;
     form.validateFields((err, values) => {
-      if (err) {
-        return;
-      }
-      this.setState({
-        loading: true,
-      });
-      const params = {
+      if (err) return;
+      const data = {
         card: {
           title: values.title,
           body: values.body,
-          // TODO: let user choose board if they want to...?
-          // board_id: null
-        },
+        }
       }
-      axios.post('/v1/cards.json', params)
-      .then(response => {
-        message.success('Card is successfully created');
-        form.resetFields();
-        this.setState({
-          modalVisible: false,
-          loading: false,
-        });
-      })
-      .catch(err => {
-        message.error('Failed to create card, try again...');
-        this.setState({
-          loading: false,
-        });
-      })
+      this.props.onCreateCard(data)
+        .then(result => {
+          message.success('Card is successfully created');
+          form.resetFields();
+          this.closeModal();
+        })
+        .catch(err => {
+          message.error('Failed to create card, try again...');
+        })
     });
   }
 
@@ -117,7 +106,7 @@ class AfterAuth extends Component {
               wrappedComponentRef={this.saveFormRef}
               visible={this.state.modalVisible}
               close={this.closeModal}
-              loading={this.state.loading}
+              loading={this.props.loading}
               submitCardForm={this.submitCardForm}/>
             {this.props.children}
           </Content>
@@ -127,4 +116,17 @@ class AfterAuth extends Component {
   }
 }
 
-export default AfterAuth;
+const mapStateToProps = state => {
+  return {
+      loading: state.manageCard.loading,
+      card: state.manageCard.card,      
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onCreateCard: (data) => dispatch( actions.createCard(data) )
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AfterAuth);

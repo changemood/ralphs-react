@@ -10,13 +10,17 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import authReducer from './store/reducers/auth';
 import reviewCardsReducer from './store/reducers/reviewCards';
+import cardsTreeReducer from './store/reducers/cardsTree';
+import manageCardReducer from './store/reducers/manageCard';
 
 // Redux devtool extention for development
 const composeEnhancers = process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  reviewCards: reviewCardsReducer
+  reviewCards: reviewCardsReducer,
+  cardsTree: cardsTreeReducer,
+  manageCard: manageCardReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
