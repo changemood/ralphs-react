@@ -20,10 +20,9 @@ const boardsList = (props) => {
             renderItem={item => (
               <List.Item key={item.id}>
                 <List.Item.Meta
-                  title={<a href="https://ant.design">{item.name.last}</a>}
-                  description={item.email}
+                  title={<a href="https://ant.design">{item.name}</a>}
                 />
-                <div>Content</div>
+                <div>Some button will be here...</div>
               </List.Item>
             )}
           >
