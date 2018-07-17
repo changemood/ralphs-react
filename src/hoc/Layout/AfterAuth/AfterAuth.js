@@ -12,7 +12,7 @@ const { Sider, Content } = Layout;
 
 class AfterAuth extends Component {
   state = {
-    collapsed: false,
+    collapsed: true,
     modalVisible: false,
   };
   toggle = () => {

@@ -2,7 +2,9 @@ import React,{Component} from 'react'
 import { Spin } from 'antd'
 import { connect } from 'react-redux'
 
+import classes from './Boards.module.css'
 import * as actions from '../../store/actions/index'
+import Aux from '../../hoc/Aux/Aux'
 import BoardsList from '../../components/BoardsList/BoardsList'
 
 class Boards extends Component {
@@ -30,9 +32,14 @@ class Boards extends Component {
     }
 
     return (
-      <div>
-        {boards}
-      </div>
+      <Aux>
+        <div class={classes.SearchContainer}>
+          <p>search form will be here!!</p>
+        </div>
+        <div class={classes.BoardsContainer}>
+          {boards}
+        </div>
+      </Aux>
     );
   }
 }
