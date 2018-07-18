@@ -34,7 +34,6 @@ class AfterAuth extends Component {
   }
 
   submitCardForm = () => {
-    console.log(this.state)
     const form = this.formRef.props.form;
     form.validateFields((err, values) => {
       if (err) return;

@@ -15,7 +15,6 @@ const fetchcardsTreeStart = ( state, action ) => {
 };
 
 const fetchcardsTreeSuccess = (state, action) => {
-  console.log(action)
   return {
     ...state,
     cardsTree: action.cardsTree,

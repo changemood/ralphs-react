@@ -23,7 +23,6 @@ export const fetchBoardsFail = (error) => {
 };
 
 export const fetchBoards = () => {
-  console.log("am I called...?")
   return dispatch => {
     dispatch(fetchBoardsStart());
     axios.get('/v1/boards.json')

@@ -15,8 +15,6 @@ const fetchBoardsStart = ( state, action ) => {
 };
 
 const fetchBoardsSuccess = (state, action) => {
-  console.log(action.boards)
-  console.log("called?")
   return {
     ...state,
     boards: action.boards,

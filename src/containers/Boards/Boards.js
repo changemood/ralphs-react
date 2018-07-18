@@ -33,10 +33,10 @@ class Boards extends Component {
 
     return (
       <Aux>
-        <div class={classes.SearchContainer}>
+        <div className={classes.SearchContainer}>
           <p>search form will be here!!</p>
         </div>
-        <div class={classes.BoardsContainer}>
+        <div className={classes.BoardsContainer}>
           {boards}
         </div>
       </Aux>
