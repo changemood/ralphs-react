@@ -25,6 +25,8 @@ class AfterAuth extends Component {
     if (key === "1" ) {
       this.setState({modalVisible: true})
     } else if ( key === "2" ) {
+      console.log('Open New Board')
+    } else if ( key === "3" ) {
       console.log('Open board page')
     }
   }
@@ -76,6 +78,10 @@ class AfterAuth extends Component {
               <span>Create Card</span>
             </Menu.Item>
             <Menu.Item key="2" >
+              <Icon type="plus-square-o" />
+              <span>Create Board</span>
+            </Menu.Item>
+            <Menu.Item key="3" >
               <NavLink to="/boards" exact>
                 <Icon type="laptop" />
                 <span>Boards</span>
