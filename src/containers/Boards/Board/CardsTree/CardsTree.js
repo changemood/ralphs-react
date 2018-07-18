@@ -27,8 +27,7 @@ class CardsTree extends Component {
   }
 
   fetchCardsTree () {
-    const id = "8984903c-709b-4a6d-8d4a-0286247ad324"
-    axios.get(`/v1/boards/${id}/cards/tree.json`)
+    axios.get(`/v1/boards/${this.props.board_id}/cards/tree.json`)
       .then(response => {
         this.setState({cardsTree: response.data})
       })
@@ -59,6 +58,7 @@ class CardsTree extends Component {
         card: {
           title: values.title,
           body: values.body,
+          board_id: this.props.board_id,
           parent_id: this.state.node.id
         }
       }
@@ -187,6 +187,7 @@ class CardsTree extends Component {
           searchMethod={customSearchMethod}
           searchQuery={searchString}
           searchFocusOffset={searchFocusIndex}
+          // rowHeight={100}
           //
           // This callback returns the matches from the search,
           // including their `node`s, `treeIndex`es, and `path`s
