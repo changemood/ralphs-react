@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import { Layout, Menu, Icon, message } from 'antd';
 import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
 import * as actions from '../../../store/actions/index'
 import classes from './AfterAuth.module.css'
 import CardForm from '../../../components/Modal/CardForm/CardForm'
-import axios from '../../../utilities';
 
 const { Sider, Content } = Layout;
 
@@ -25,9 +25,15 @@ class AfterAuth extends Component {
     if (key === "1" ) {
       this.setState({modalVisible: true})
     } else if ( key === "2" ) {
-      console.log('Open New Board')
+      this.props.onCreateBoard({"board": {"name": ""}})
+        .then(result => {
+          this.props.history.push(`/boards/${this.props.board.id}`)
+        })
+        .catch(err => {
+          message.error('Failed to create board, try again...');
+        })
     } else if ( key === "3" ) {
-      console.log('Open board page')
+      this.props.history.push(`/boards`)
     }
   }
 
@@ -82,10 +88,8 @@ class AfterAuth extends Component {
               <span>Create Board</span>
             </Menu.Item>
             <Menu.Item key="3" >
-              <NavLink to="/boards" exact>
-                <Icon type="laptop" />
-                <span>Boards</span>
-              </NavLink>
+              <Icon type="laptop" />
+              <span>Boards</span>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -124,14 +128,16 @@ class AfterAuth extends Component {
 const mapStateToProps = state => {
   return {
       loading: state.manageCard.loading,
-      card: state.manageCard.card,      
+      card: state.manageCard.card,
+      board: state.boards.board,
     };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCreateCard: (data) => dispatch( actions.createCard(data) )
+    onCreateCard: (data) => dispatch( actions.createCard(data) ),
+    onCreateBoard: (data) => dispatch( actions.createBoard(data) )
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AfterAuth);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AfterAuth));
