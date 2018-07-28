@@ -16,5 +16,6 @@ export {
   createCard
 } from './manageCard';
 export {
-  fetchBoards
+  fetchBoards,
+  createBoard
 } from './boards'
