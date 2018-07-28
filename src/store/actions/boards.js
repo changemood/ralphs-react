@@ -84,17 +84,15 @@ export const createBoard = (data={}) => (dispatch) => {
   }))
 }
 
-export const updateBoard = (data={}) => (dispatch) => {
+export const updateBoard = (board={}) => (dispatch) => {
   return (new Promise((resolve, reject) => {
     dispatch(manageBoardStart());
-    axios.patch('/v1/boards.json', data)
+    axios.patch(`/v1/boards/${board.id}.json`, board)
       .then(response => {
         dispatch(manageBoardSuccess(response.data, "Board is successfully updated"));
-        console.log('sent?')
         resolve();
       })
       .catch(err => {
-        console.log('sent?')
         dispatch(manageBoardFail(err.response.data));
         reject();
       })

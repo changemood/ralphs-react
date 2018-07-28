@@ -7,11 +7,26 @@ import Aux from '../../../hoc/Aux/Aux'
 import CardsTree from './CardsTree/CardsTree'
 
 class Board extends Component {
+  componentWillMount() {
+    this.timer = 0;
+  }
+
   // update board state. Only state not on api side!!
   handleBoardNameChage = (event) => {
-    const newBoard = {...this.props.board,
-                      "name": event.target.value}
+    // Set the time 0 again!!
+    clearTimeout(this.timer);
+
+    // update the state
+    const newBoard = {...this.props.board, "name": event.target.value}
     this.props.onSetBoard(newBoard)
+
+    // If user don't time 5 seconds, update api side too.
+    // REF: https://gist.github.com/krambertech/76afec49d7508e89e028fce14894724c
+    this.timer = setTimeout(() => {
+      this.props.onUpdateBoard(newBoard)
+        .then(result => message.success('Your board is updatad!'))
+        .catch(err => message.error("Failed to update board..."))
+      }, 5000);
   }
   
   render() {
@@ -36,8 +51,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSetBoard: (data) => dispatch( actions.setBoard(data) ),
-    onUpdateBoard: (data) => dispatch( actions.updateBoard(data) )
+    onSetBoard: (board) => dispatch( actions.setBoard(board) ),
+    onUpdateBoard: (board) => dispatch( actions.updateBoard(board) )
   }
 }
 
