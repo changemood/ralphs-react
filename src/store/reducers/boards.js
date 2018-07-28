@@ -58,6 +58,13 @@ const manageBoardFail = (state, action) => {
   }
 };
 
+const setBoard = (state, action) => {
+  return {
+    ...state,
+    board: action.board
+  }
+}
+
 const reducer = ( state = initialState, action ) => {
   switch ( action.type ) {
     case actionTypes.FETCH_BOARDS_START: return fetchBoardsStart(state, action);
@@ -66,6 +73,7 @@ const reducer = ( state = initialState, action ) => {
     case actionTypes.MANAGE_BOARD_START: return manageBoardStart(state, action);
     case actionTypes.MANAGE_BOARD_SUCCESS: return manageBoardSuccess(state, action);
     case actionTypes.MANAGE_BOARD_FAIL: return manageBoardFail(state, action);
+    case actionTypes.SET_BOARD: return setBoard(state, action);
     default: return state;
   }
 };

@@ -35,6 +35,15 @@ export const fetchBoards = () => {
   };
 }
 
+// This is used when user click link from /boards
+// So we don't have to request board again.
+export const setBoard = (board) => {
+  return {
+    type: actionTypes.SET_BOARD,
+    board: board
+  }
+}
+
 ////////////////////////////////////////
 ///// Manage Boards. create/update/delete
 export const manageBoardStart = () => {
