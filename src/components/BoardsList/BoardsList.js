@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, message, Spin } from 'antd'
+import { List, Spin } from 'antd'
 import { Link } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -21,7 +21,7 @@ const boardsList = (props) => {
             renderItem={item => (
               <List.Item key={item.id}>
                 <List.Item.Meta
-                  title={<Link to={`/boards/${item.id}`}>{item.name}</Link>}
+                  title={<Link to={`/boards/${item.id}`} onClick={() => props.setBoard(item)}>{item.name}</Link>}
                 />
                 <div>Some button will be here...</div>
               </List.Item>
