@@ -31,3 +31,5 @@ export const FETCH_BOARDS_FAIL = 'FETCH_BOARDS_FAIL';
 export const MANAGE_BOARD_START = 'MANAGE_BOARD_START';
 export const MANAGE_BOARD_SUCCESS = 'MANAGE_BOARD_SUCCESS';
 export const MANAGE_BOARD_FAIL = 'MANAGE_BOARD_FAIL';
+// set board when users clikced link on boards list
+export const SET_BOARD = 'SET_BOARD';

@@ -35,6 +35,15 @@ export const fetchBoards = () => {
   };
 }
 
+// This is used when user click link from /boards
+// So we don't have to request board again.
+export const setBoard = (board) => {
+  return {
+    type: actionTypes.SET_BOARD,
+    board: board
+  }
+}
+
 ////////////////////////////////////////
 ///// Manage Boards. create/update/delete
 export const manageBoardStart = () => {
@@ -75,7 +84,19 @@ export const createBoard = (data={}) => (dispatch) => {
   }))
 }
 
-export const updateBoard = () => {
+export const updateBoard = (board={}) => (dispatch) => {
+  return (new Promise((resolve, reject) => {
+    dispatch(manageBoardStart());
+    axios.patch(`/v1/boards/${board.id}.json`, board)
+      .then(response => {
+        dispatch(manageBoardSuccess(response.data, "Board is successfully updated"));
+        resolve();
+      })
+      .catch(err => {
+        dispatch(manageBoardFail(err.response.data));
+        reject();
+      })
+  }))
 }
 
 export const destroyBoard = () => {

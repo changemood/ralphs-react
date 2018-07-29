@@ -27,6 +27,7 @@ class Boards extends Component {
           loading={this.props.loading}
           hasMore={false}
           data={this.props.boards}
+          setBoard={(board) => this.props.onSetBoard(board)}
           />
       )
     }
@@ -53,7 +54,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchBoards: () => dispatch( actions.fetchBoards() )
+    onFetchBoards: () => dispatch( actions.fetchBoards() ),
+    onSetBoard: (board) => dispatch( actions.setBoard(board) )
   }
 }
 
