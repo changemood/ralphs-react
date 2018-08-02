@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/index'
 import axios from '../../../../utilities';
 import CardForm from '../../../../components/Modal/CardForm/CardForm'
-import { message } from 'antd';
+import { message, Button } from 'antd';
 
 // NOTE: I created some actions and reducer for this component first,
 // but since we are not going to expect to use cardsTree state except this component,
@@ -59,7 +59,7 @@ class CardsTree extends Component {
           title: values.title,
           body: values.body,
           board_id: this.props.board_id,
-          parent_id: this.state.node.id
+          parent_id: (this.state.node ? this.state.node.id : null) // this.state.node is null when create parent card
         }
       }
       this.props.onCreateCard(data)
@@ -69,19 +69,26 @@ class CardsTree extends Component {
           this.closeModal();
 
           // Update cardsTree state!! only if card is successfully created
+          // first condition is to add child. second one is to create parent card
           const getNodeKey = ({ treeIndex }) => treeIndex;
+          let newCardTree = null
+          const newCard = {
+            title: this.props.card.title,
+            subtitle: this.props.card.body
+          }
+          if (this.state.node && this.state.path) {
+            newCardTree = addNodeUnderParent({
+            treeData: this.state.cardsTree,
+            parentKey: this.state.path[this.state.path.length - 1],
+            expandParent: true,
+            getNodeKey: getNodeKey,
+            newNode: newCard}).treeData
+          } else {
+            newCardTree = this.state.cardsTree.concat(newCard)
+          }
           this.setState(state => ({
-              cardsTree: addNodeUnderParent({
-                treeData: this.state.cardsTree,
-                parentKey: this.state.path[this.state.path.length - 1],
-                expandParent: true,
-                getNodeKey: getNodeKey,
-                newNode: {
-                  title: this.props.card.title,
-                  subtitle: this.props.card.body
-                },
-              }).treeData,
-            }))
+            cardsTree: newCardTree,
+          }))
         })
         .catch(err => {
           message.error('Failed to create card, try again...');
@@ -89,7 +96,9 @@ class CardsTree extends Component {
     });
   }
 
-  openModal = (node, path) => {
+  // IF they want to add parent card,
+  // node and path are null.
+  openModal = (node=null, path=null) => {
     this.setState({modalVisible: true, node: node, path: path})
   }
 
@@ -132,18 +141,24 @@ class CardsTree extends Component {
     return (
       <div style={{ height: 600 }}>
         <div>
-          <button
-            type="button"
+          <Button
+            type="primary"
+            onClick={() => { this.openModal();}}
+          >
+            Add parent
+          </Button>
+          <Button
+            type="primary"
             onClick={() => this.toggleExpanded(true)}
             >
             Expand All
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            type="primary"
             onClick={() => this.toggleExpanded(false)}
             >
             Collapse All
-          </button>
+          </Button>
         </div>
         <div>
           <form
