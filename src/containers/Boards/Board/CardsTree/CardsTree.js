@@ -157,7 +157,7 @@ class CardsTree extends Component {
             <Button
               type="primary"
               onClick={() => { this.openModal();}}
-              className={classes.Button}
+              className={classes.FirstButton}
             >
               Add parent
             </Button>
@@ -188,15 +188,16 @@ class CardsTree extends Component {
                 style={{ fontSize: '1rem' }}
                 value={searchString}
                 onChange={event => this.setState({ searchString: event.target.value })}
+                className={classes.Input}
               />
-              <Button type="secondary" icon="caret-left" disabled={!searchFoundCount} onClick={selectPrevMatch} />
+              <Button type="secondary" icon="caret-left" disabled={!searchFoundCount} onClick={selectPrevMatch} className={classes.Button}/>
               <span>
                 &nbsp;
                 {searchFoundCount > 0 ? searchFocusIndex + 1 : 0}
                 &nbsp;/&nbsp;
                 {searchFoundCount || 0}
               </span>
-              <Button type="secondary" icon="caret-right" disabled={!searchFoundCount} onClick={selectNextMatch} />
+              <Button type="secondary" icon="caret-right" disabled={!searchFoundCount} onClick={selectNextMatch} className={classes.Button}/>
             </form>
           </div>
         </div>
