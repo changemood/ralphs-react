@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { message } from 'antd';
 
 import * as actions from '../../../../store/actions/index'
+import classes from './BoardName.module.css'
 
 class BoardName extends Component {
   componentWillMount() {
@@ -29,7 +30,11 @@ class BoardName extends Component {
   
   render() {
     return (
-      <input type="text" value={this.props.board.name} onChange={this.handleBoardNameChage} />
+      <input className={classes.BoardName} 
+             type="text" 
+             value={this.props.board.name}
+             placeholder='Board name'
+             onChange={this.handleBoardNameChage} />
     );
   }
 }
