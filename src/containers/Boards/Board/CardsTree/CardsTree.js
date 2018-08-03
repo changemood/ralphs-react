@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/index'
 import axios from '../../../../utilities';
 import CardForm from '../../../../components/Modal/CardForm/CardForm'
-import { message, Button } from 'antd';
+import { message, Button, Dropdown, Menu, Icon } from 'antd';
 import classes from './CardsTree.module.css'
 
 // NOTE: I created some actions and reducer for this component first,
@@ -97,6 +97,10 @@ class CardsTree extends Component {
     });
   }
 
+  showDropDown = (node=null, path=null) => {
+
+  }
+  
   // IF they want to add parent card,
   // node and path are null.
   openModal = (node=null, path=null) => {
@@ -139,6 +143,13 @@ class CardsTree extends Component {
             : 0,
       });
 
+    const cardMenu = (
+      <Menu onClick={this.handleMenuClick}>
+        <Menu.Item key="1"><Icon type="edit" /> Edit</Menu.Item>
+        <Menu.Item key="2"><Icon type="delete" /> Delte</Menu.Item>
+      </Menu>
+    );
+
     return (
       <div className={classes.CardsTree}>
         <div className={classes.CardsTreeHeader}>
@@ -146,18 +157,21 @@ class CardsTree extends Component {
             <Button
               type="primary"
               onClick={() => { this.openModal();}}
+              className={classes.Button}
             >
               Add parent
             </Button>
             <Button
               type="secondary"
               onClick={() => this.toggleExpanded(true)}
+              className={classes.Button}
               >
               Expand All
             </Button>
             <Button
               type="secondary"
               onClick={() => this.toggleExpanded(false)}
+              className={classes.Button}
               >
               Collapse All
             </Button>
@@ -208,12 +222,11 @@ class CardsTree extends Component {
             }
             generateNodeProps={({ node, path }) => ({
               buttons: [
-                <button
-                  onClick={() => { this.openModal(node, path);}}
-                >
+                <Dropdown.Button onClick={() => this.openModal(node, path)} overlay={cardMenu} style={{ marginLeft: 8 }}>
                   Add Child
-                </button>]}
-                )}
+                </Dropdown.Button>
+              ]
+            })}
             />
         </div>
         <CardForm

@@ -6,9 +6,9 @@
     margin: 0 0 1em 0;
   }
     .Buttons{
-      margin: 0.4em;
+      margin: 0.4em 0.4em 0.4em 0;
     }
-      button{
+      .Button{
         margin: 0 0.4em;
       }
     .SearchForm{
