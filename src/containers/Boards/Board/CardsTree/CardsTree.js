@@ -150,13 +150,13 @@ class CardsTree extends Component {
               Add parent
             </Button>
             <Button
-              type="primary"
+              type="secondary"
               onClick={() => this.toggleExpanded(true)}
               >
               Expand All
             </Button>
             <Button
-              type="primary"
+              type="secondary"
               onClick={() => this.toggleExpanded(false)}
               >
               Collapse All
