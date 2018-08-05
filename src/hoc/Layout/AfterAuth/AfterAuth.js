@@ -35,6 +35,8 @@ class AfterAuth extends Component {
       this.props.history.push(`/boards`)
     } else if ( key === "4" ) {
       this.props.history.push(`/user`)
+    } else if ( key === "5" ) {
+      this.props.onLogout()
     }
   }
 
@@ -78,7 +80,7 @@ class AfterAuth extends Component {
           onCollapse={this.toggle}
           style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}
         >
-          <div className={classes.Logo} />
+          <div className={classes.Logo} onClick={() => this.props.history.push(`/`)} style={{cursor: 'pointer'}}/>
           <Menu theme="dark" mode="inline" onClick={this.handleMenuClick}>
             <Menu.Item key="1" >
               <Icon type="plus-circle-o" />
@@ -92,13 +94,14 @@ class AfterAuth extends Component {
               <Icon type="laptop" />
               <span>Boards</span>
             </Menu.Item>
-            <Menu.Item key="4" style={{bottom: 0, position: 'absolute', marginBottom: 48}}>
-              <Icon type="user" />
-              <span>Account</span>
-            </Menu.Item>
+            <Menu.SubMenu title={<span><Icon type="user" /><span>Account</span></span>}
+                          style={{bottom: 0, position: 'absolute', width: (this.state.collapsed ? 80 : 200), marginBottom: 56}}>
+              <Menu.Item key="4"><span>Your profile</span></Menu.Item>
+              <Menu.Item key="5">Logout</Menu.Item>
+            </Menu.SubMenu>
           </Menu>
         </Sider>
-        <Layout style={{ marginLeft: this.state.collapsed ? 80 : 200 }}>
+        <Layout style={{ marginLeft: (this.state.collapsed ? 80 : 200) }}>
           <Content style={{ padding: 24, background: '#fff', minHeight: 280 }}>
             <CardForm
               wrappedComponentRef={this.saveFormRef}
@@ -124,6 +127,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onLogout: () => dispatch( actions.logout() ),
     onCreateCard: (data) => dispatch( actions.createCard(data) ),
     onCreateBoard: (data) => dispatch( actions.createBoard(data) )
   }

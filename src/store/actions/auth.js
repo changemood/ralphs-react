@@ -60,7 +60,7 @@ export const auth = (authData, type='signUp') => {
 }
 
 export const logout = () => {
-  localStorage.removeItem('token');
+  localStorage.clear();
   return {
     type: actionTypes.AUTH_LOGOUT
   };
