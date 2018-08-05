@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { Layout, Menu, Icon, message } from 'antd';
-import { NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -34,6 +33,8 @@ class AfterAuth extends Component {
         })
     } else if ( key === "3" ) {
       this.props.history.push(`/boards`)
+    } else if ( key === "4" ) {
+      this.props.history.push(`/user`)
     }
   }
 
@@ -72,10 +73,10 @@ class AfterAuth extends Component {
     return (
       <Layout>
         <Sider
-          trigger={null}
           collapsible
           collapsed={this.state.collapsed}
-          style={{ overflow: 'auto', height: '100vh', left: 0 }}
+          onCollapse={this.toggle}
+          style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}
         >
           <div className={classes.Logo} />
           <Menu theme="dark" mode="inline" onClick={this.handleMenuClick}>
@@ -91,26 +92,14 @@ class AfterAuth extends Component {
               <Icon type="laptop" />
               <span>Boards</span>
             </Menu.Item>
+            <Menu.Item key="4" style={{bottom: 0, position: 'absolute', marginBottom: 48}}>
+              <Icon type="user" />
+              <span>Account</span>
+            </Menu.Item>
           </Menu>
         </Sider>
-        <Layout>
-          <header className={classes.Header}>
-            <div className={classes.Left}>
-              <Icon
-                className={classes.HeaderIcon}
-                type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                onClick={this.toggle}
-              />
-            </div>
-            <div className={classes.Right}>
-              <NavLink to="/user" exact>
-                <Icon className={classes.HeaderIcon}
-                      type="user"
-                />
-              </NavLink>
-            </div>
-          </header>
-          <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+        <Layout style={{ marginLeft: this.state.collapsed ? 80 : 200 }}>
+          <Content style={{ padding: 24, background: '#fff', minHeight: 280 }}>
             <CardForm
               wrappedComponentRef={this.saveFormRef}
               visible={this.state.modalVisible}
