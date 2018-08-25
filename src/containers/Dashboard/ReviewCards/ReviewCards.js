@@ -21,7 +21,7 @@ class ReviewCards extends Component {
   }
 
   render() {
-    let reviewCards = <Spin tip='Loading'/>
+    let reviewCards = <div style={{textAlign: "center"}}><Spin tip='Loading'/></div>
     if ( !this.props.loading ) {
       reviewCards = this.props.reviewCards.map( card => {
         return (

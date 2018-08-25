@@ -19,7 +19,7 @@ class Boards extends Component {
   }
 
   render() {
-    let boards = <Spin tip='Loading'/>
+    let boards = <div style={{textAlign: "center"}}><Spin tip='Loading'/></div>
     if ( !this.props.loading ) {
       boards = (
         <BoardsList
