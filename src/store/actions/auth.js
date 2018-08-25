@@ -102,7 +102,7 @@ export const hanleGoogleAuth = (accessToken) => {
     }
     axios.post(url, params)
       .then(response => {
-        const user = response.data.user
+        const user = response.data
         const expirationDate = new Date(new Date().getTime() + user.expires_in * 3600000)
         localStorage.setItem('expirationDate', expirationDate);
         localStorage.setItem('token', user.token);
