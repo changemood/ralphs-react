@@ -33,10 +33,10 @@ const card = (props) => {
         </div>
       </div>
       <div className={classes.Menu}>
-        <div className={classes.Button} onClick={props.reviewed}>
+        <div className={classes.Button} onClick={props.up}>
           <Icon type="like-o" style={{fontSize: 25 }}/>
         </div>
-        <div className={classes.Button} onClick={props.reviewAgain}>
+        <div className={classes.Button} onClick={props.down}>
           <Icon type="dislike-o" style={{fontSize: 25 }}/>
         </div>
         <div className={classes.DropDown}>

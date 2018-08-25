@@ -34,3 +34,13 @@ export const fetchReviewCards = () => {
     })
   };
 }
+
+// type can be either up or down
+export const reviewCard = (id, type) => {
+  return dispatch => {
+    axios.post(`/v1/cards/${id}/${type}.json`)
+    .then(response => {
+      dispatch({type: actionTypes.REVIEW_CARD, reviewedCard: response.data});
+    })
+  };
+}
