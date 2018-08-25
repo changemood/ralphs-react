@@ -8,14 +8,6 @@ import Card from '../../../components/Dashboard/ReviewCards/Card/Card'
 
 class ReviewCards extends Component {
 
-  handleReviewed = (cardId, type = 'reviewed') => {
-    if (type === 'reviewed') {
-      console.log('reviewd')
-    } else {
-      console.log('again')
-    }
-  }
-
   componentDidMount () {
     this.props.onFetchReviewCards()
   }
@@ -29,8 +21,8 @@ class ReviewCards extends Component {
             <Card
               title={card.title}
               body={card.body}
-              reviewed={() => this.handleReviewed('123')}
-              reviewAgain={() => this.handleReviewed('123', 'again')}
+              up={() => this.props.onReviewCard(card.id, 'up')}
+              down={() => this.props.onReviewCard(card.id, 'down')}
               />
           </li> 
         )
@@ -55,7 +47,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchReviewCards: () => dispatch( actions.fetchReviewCards() )
+    onFetchReviewCards: () => dispatch( actions.fetchReviewCards() ),
+    onReviewCard: (id,type) => dispatch( actions.reviewCard(id, type) )
   }
 }
 
