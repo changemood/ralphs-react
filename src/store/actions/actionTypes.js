@@ -4,6 +4,12 @@ export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
+// User actions
+export const STORE_USER = 'STORE_USER';
+export const UPDATE_USER_START = 'UPDATE_USER_START';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+export const UPDATE_USER_FAIL = 'UPDATE_USER_FAIL';
+
 // Review Cards
 export const MARK_REVIEWED = 'MARK_REVIEWED';
 export const MARK_AGAIN = 'MARK_AGAIN';
