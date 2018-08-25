@@ -5,6 +5,9 @@ export {
   authCheckState,
 } from './auth';
 export {
+  updateUser,
+} from './user';
+export {
   fetchReviewCards,
 } from './reviewCards';
 export {
