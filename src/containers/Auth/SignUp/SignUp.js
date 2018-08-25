@@ -18,7 +18,7 @@ class SignUp extends Component {
             email: values.email,
             username: values.userName,
             password: values.password,
-            password_confirmation: values.passwordConfirmation
+            password_confirmation: values.password
           }
         }
         this.props.onSignUp(authData)
@@ -59,14 +59,15 @@ class SignUp extends Component {
               )
             }
         </FormItem>
-        <FormItem hasFeedback={true}>
+        {/* Remove password confirmation for better sign up flow... */}
+        {/* <FormItem hasFeedback={true}>
             {getFieldDecorator('passwordConfirmation', {
               rules: [{ required: true, min: 8, whitespace: true }],
               })(
                 <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password confirmation" />
               )
             }
-        </FormItem>
+        </FormItem> */}
         <Button type="primary" htmlType="submit" className={classes.AuthButton} loading={this.props.loading} disabled={this.props.loading}>
           Sign Up
         </Button>
@@ -83,7 +84,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSignUp: (authData) => dispatch( actions.auth(authData) ),
+    onSignUp: (authData) => dispatch( actions.auth(authData, 'signUp') ),
     onHanleGoogleAuth: (accessToken) => dispatch( actions.hanleGoogleAuth(accessToken) )
   }
 }
