@@ -8,6 +8,14 @@ export const authStart = () => {
   };
 };
 
+// Store user state after auth, so we can resuse it in profile etc.
+export const storeUser = (user) => {
+  return {
+    type: actionTypes.STORE_USER,
+    user: user
+  };
+};
+
 export const authSuccess = (token) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
@@ -40,11 +48,13 @@ export const auth = (authData, type='signUp') => {
     }
     axios.post(url, authData)
       .then(response => {
-        const expirationDate = new Date(new Date().getTime() + response.data.expires_in * 3600000)
+        const user = response.data.user
+        const expirationDate = new Date(new Date().getTime() + user.expires_in * 3600000)
         localStorage.setItem('expirationDate', expirationDate);
-        localStorage.setItem('token', response.data.token);
-        dispatch(authSuccess(response.data.token));
-        dispatch(checkAuthTimeout(response.data.expires_in));
+        localStorage.setItem('token', user.token);
+        dispatch(authSuccess(user.token));
+        dispatch(storeUser(user));
+        dispatch(checkAuthTimeout(user.expires_in));
       })
       .catch(err => {
         let error
@@ -60,7 +70,7 @@ export const auth = (authData, type='signUp') => {
 }
 
 export const logout = () => {
-  localStorage.removeItem('token');
+  localStorage.clear();
   return {
     type: actionTypes.AUTH_LOGOUT
   };
@@ -92,11 +102,13 @@ export const hanleGoogleAuth = (accessToken) => {
     }
     axios.post(url, params)
       .then(response => {
-        const expirationDate = new Date(new Date().getTime() + response.data.expires_in * 3600000)
+        const user = response.data
+        const expirationDate = new Date(new Date().getTime() + user.expires_in * 3600000)
         localStorage.setItem('expirationDate', expirationDate);
-        localStorage.setItem('token', response.data.token);
-        dispatch(authSuccess(response.data.token));
-        dispatch(checkAuthTimeout(response.data.expires_in));
+        localStorage.setItem('token', user.token);
+        dispatch(storeUser(user));
+        dispatch(authSuccess(user.token));
+        dispatch(checkAuthTimeout(user.expires_in));
       })
       .catch(err => {
         const error = err.response.data.errors
