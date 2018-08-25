@@ -9,6 +9,7 @@ export {
 } from './user';
 export {
   fetchReviewCards,
+  reviewCard,
 } from './reviewCards';
 export {
   fetchCardsTree,
