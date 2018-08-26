@@ -10,6 +10,13 @@ class BoardName extends Component {
     this.timer = 0;
   }
 
+  // NOTE: This is a bit ugly...we should really fetch board
+  componentDidMount() {
+    if (!this.props.board) {
+      this.props.onfetchBoard(this.props.board_id)
+    }
+  }
+
   // update board state. Only state not on api side!!
   handleBoardNameChage = (event) => {
     // Set the time 0 again!!
@@ -29,13 +36,17 @@ class BoardName extends Component {
   }
   
   render() {
-    return (
-      <input className={classes.BoardName} 
-             type="text" 
-             value={this.props.board.name}
-             placeholder='Board name'
-             onChange={this.handleBoardNameChage} />
-    );
+    if (this.props.board) {
+      return (
+        <input className={classes.BoardName} 
+              type="text" 
+              value={this.props.board.name}
+              placeholder='Board name'
+              onChange={this.handleBoardNameChage} />
+      );
+    } else {
+      return null;
+    }
   }
 }
 
@@ -47,6 +58,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onfetchBoard: (board_id) => dispatch (actions.fetchBoard(board_id)),
     onSetBoard: (board) => dispatch( actions.setBoard(board) ),
     onUpdateBoard: (board) => dispatch( actions.updateBoard(board) )
   }

@@ -1,24 +1,22 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import {Icon, Menu, Dropdown} from 'antd'
 
 import classes from './Card.module.css'
 
 const card = (props) => {
   const onClick = function ({ key }) {
-    if (key === "1" ) {
-      console.log('Link to Board')
-    } else if ( key === "2" ) {
-      console.log('Stop review')
-    } else if ( key === "3") {
+    if (key === "2" ) {
       console.log('Open edit card')
     }
   };
 
   const menu = (
     <Menu onClick={onClick}>
-      <Menu.Item key="1">Go to board</Menu.Item>
-      <Menu.Item key="2">Stop Review</Menu.Item>
-      <Menu.Item key="3">Edit</Menu.Item>
+      <Menu.Item key="1">
+        <Link to={`/boards/${props.board_id}`} >Go to board</Link>
+      </Menu.Item>
+      <Menu.Item key="2">Edit</Menu.Item>
     </Menu>
   );
 
