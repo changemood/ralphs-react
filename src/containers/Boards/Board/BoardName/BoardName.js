@@ -12,7 +12,7 @@ class BoardName extends Component {
 
   // NOTE: This is a bit ugly...we should really fetch board
   componentDidMount() {
-    if (!this.props.board) {
+    if (!this.props.board || this.props.board.id !== this.props.board_id) {
       this.props.onfetchBoard(this.props.board_id)
     }
   }
