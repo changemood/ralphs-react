@@ -35,6 +35,18 @@ export const fetchBoards = () => {
   };
 }
 
+export const fetchBoard = (id) => {
+  return dispatch => {
+    axios.get(`/v1/boards/${id}.json`)
+    .then(response => {
+      dispatch(setBoard(response.data));
+    })
+    .catch(err => {
+      dispatch(fetchBoardsFail(err.response.data));
+    })
+  };
+}
+
 // This is used when user click link from /boards
 // So we don't have to request board again.
 export const setBoard = (board) => {

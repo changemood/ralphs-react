@@ -23,5 +23,6 @@ export {
   fetchBoards,
   createBoard,
   updateBoard,
-  setBoard
+  setBoard,
+  fetchBoard,
 } from './boards'
