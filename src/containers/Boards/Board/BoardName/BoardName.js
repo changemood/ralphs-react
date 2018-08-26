@@ -16,6 +16,11 @@ class BoardName extends Component {
       this.props.onfetchBoard(this.props.board_id)
     }
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.board_id !== prevProps.board_id) {
+      this.props.onfetchBoard(this.props.board_id)
+    }
+  }
 
   // update board state. Only state not on api side!!
   handleBoardNameChage = (event) => {
