@@ -21,6 +21,7 @@ class ReviewCards extends Component {
             <Card
               title={card.title}
               body={card.body}
+              board_id={card.board_id}
               up={() => this.props.onReviewCard(card.id, 'up')}
               down={() => this.props.onReviewCard(card.id, 'down')}
               />

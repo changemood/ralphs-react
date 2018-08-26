@@ -3,14 +3,17 @@
   height: 300px;  
   border: 1px solid #ebedf0;
   position: relative;
-  border-radius: 5px
+  border-radius: 3px;
+  box-shadow: 0 1px 1px 0 rgba(60,64,67,.08), 0 1px 3px 1px rgba(60,64,67,.16);
 }
 
   .Main {
-    height: 250px;
+    height: 245px;
   }
 
     .Title {
+      margin: 5px;
+      font-size: 1.5rem;
       min-height: 30px;
       align-items: center;          
       border-bottom: 1px solid #ebedf0;
@@ -40,6 +43,14 @@
       justify-content: center;
       border-right: 1px solid #ebedf0;  
     }
+      .Up {
+        background-color: whitef;
+        color: #1890ff;
+      }
+      .Down {
+        background-color: whitef;
+        color: #ff4d4f;
+      }
     .DropDown {
       display: flex;
       align-items: center;
@@ -47,8 +58,14 @@
       width: 20%
     }
   
-  .Button:hover,
+  .Up:hover,
   .DropDown:hover {
     background-color: #1890ff;
+    border-color: #1890ff;
+    color: white;
+  }
+  .Down:hover {
+    background-color: #ff4d4f;
+    border-color: #ff4d4f;
     color: white;
   }

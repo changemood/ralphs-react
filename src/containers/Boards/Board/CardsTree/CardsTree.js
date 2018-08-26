@@ -27,6 +27,12 @@ class CardsTree extends Component {
     this.fetchCardsTree()
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.board_id !== prevProps.board_id) {
+      this.fetchCardsTree()
+    }
+  }
+
   fetchCardsTree () {
     axios.get(`/v1/boards/${this.props.board_id}/cards/tree.json`)
       .then(response => {

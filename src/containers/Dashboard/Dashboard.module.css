@@ -1,0 +1,5 @@
+.RowHeader {
+  display: table-cell;
+  vertical-align: bottom;
+  font-size: 1.4vw;
+}

@@ -8,7 +8,9 @@ class Board extends Component {
   render() {
     return (
       <Aux>
-        <BoardName />
+        <BoardName 
+          board_id={this.props.match.params.id}
+          />
         <CardsTree 
           board_id={this.props.match.params.id}
           />
